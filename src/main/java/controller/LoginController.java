@@ -70,7 +70,7 @@ public class LoginController {
 		return mv;
 	}
 	
-	@RequestMapping(value="upload", method = RequestMethod.POST)
+	/*@RequestMapping(value="upload", method = RequestMethod.POST)
 	public ModelAndView upload(){
 		ModelAndView mv = new ModelAndView("/result/result");
 		String msg = new String();
@@ -92,5 +92,5 @@ public class LoginController {
 		}
 		mv.addObject("result", msg);
 		return mv;
-	}
+	}*/
 }
