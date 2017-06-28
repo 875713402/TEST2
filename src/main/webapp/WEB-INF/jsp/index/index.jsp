@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<script type="text/javascript" src="static/script/AjaxUpload.js"></script>
+<script type="text/javascript" src="static/script/jquery.min.js"></script>
 <title>Hello World</title>
 </head>
 <body>
@@ -16,21 +16,12 @@
     <br/>
     <a href="uploadS">上传a.txt</a>
     <br/>
-    <input id="upload" type="button" value="AjaxUpload上传"/>
+    <form action="/20170619_01/upload" enctype="multipart/form-data" method="post">
+    	<input type="file" name="file"/>
+    	<input type="submit" value="上传"/>
+    </form>
+    
 </body>
 <script type="text/javascript">
-	new AjaxUpload('#upload', {  
-        action: 'upload?',  
-        data: {},  
-        name: 'file',  
-        onSubmit: function(file, ext) {  
-            if (!(ext && /^(jpg|JPG|png|PNG|gif|GIF)$/.test(ext))) {  
-                alert("您上传的图片格式不对，请重新选择！");  
-                return false;  
-            }  
-        },  
-        onComplete: function(file, response) {  
-        }  
-    });
 </script>
 </html>

@@ -24,7 +24,6 @@ import com.qiniu.storage.model.DefaultPutRet;
 import com.qiniu.util.Auth;
 
 import entity.LoginForm;
-import jdk.nashorn.internal.ir.RuntimeNode.Request;
 
 @Controller()
 public class LoginController {
@@ -70,27 +69,30 @@ public class LoginController {
 		return mv;
 	}
 	
-	/*@RequestMapping(value="upload", method = RequestMethod.POST)
-	public ModelAndView upload(){
+	@RequestMapping(value="upload", method = RequestMethod.POST)
+	public ModelAndView upload(@RequestParam("file") MultipartFile file){
 		ModelAndView mv = new ModelAndView("/result/result");
 		String msg = new String();
 		String upToken = Auth.create(AK, SK).uploadToken(BUCKET);
 		Configuration cfg = new Configuration(Zone.zone2());
 		UploadManager uploadManager = new UploadManager(cfg);
-		if(file.length()>1024*1024*200){
+		if(file.getSize()>1024*1024*200){
 			msg = "fail:文件大小大于200M,请重新上传！";
 		}else{
 			try {
-				Response responsed = uploadManager.put(file, file.getName(), upToken);
+				Response responsed = uploadManager.put(file.getBytes(), file.getOriginalFilename(), upToken);
 				//解析上传成功返回的结果
 			    DefaultPutRet putRet = new Gson().fromJson(responsed.bodyString(), DefaultPutRet.class);
 			    msg = "success:" + putRet.key;
 			} catch (QiniuException e) {
 				e.printStackTrace();
 				msg = "fail:" + e;
+			} catch (IOException e) {
+				msg = "fail:" + e;
+				e.printStackTrace();
 			} 
 		}
 		mv.addObject("result", msg);
 		return mv;
-	}*/
+	}
 }
