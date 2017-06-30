@@ -5,6 +5,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script type="text/javascript" src="static/script/jquery.min.js"></script>
+<script type="text/javascript" src="static/script/ajaxfileupload.js"></script>
 <title>Hello World</title>
 </head>
 <body>
@@ -17,11 +18,28 @@
     <a href="uploadS">上传a.txt</a>
     <br/>
     <form action="/20170619_01/upload" enctype="multipart/form-data" method="post">
-    	<input type="file" name="file"/>
+    	<input type="file" name="file" id="file"/>
     	<input type="submit" value="上传"/>
     </form>
-    
+    <input type="file" name="ajaxFile" id="ajaxFile" onchange="fun()"/>
 </body>
 <script type="text/javascript">
+function fun(){
+	$.ajaxFileUpload({
+		type: "POST",  
+	    url: "uploadB",  
+	    secureuri : false,//是否启用安全提交，默认为false  
+	    fileElementId:'ajaxFile',//文件选择框的id属性  
+	    dataType: 'json',//服务器返回的格式  
+	    async : false,  
+	    success: function(data){  
+	        alert("msg" + data.msg);
+	        alert("src" + data.src);
+	    },  
+	    error: function (data, status, e){  
+	    	alert("msg" + data.msg);
+	    }
+	});
+}
 </script>
 </html>

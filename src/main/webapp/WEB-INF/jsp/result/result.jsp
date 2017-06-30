@@ -8,5 +8,7 @@
 </head>
 <body>
 	上传结果：${result }
+	<br />
+	<img alt="上传成功的图片" src="${src }"/>
 </body>
 </html>
