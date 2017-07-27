@@ -22,6 +22,15 @@
     	<input type="submit" value="上传"/>
     </form>
     <input type="file" name="ajaxFile" id="ajaxFile" onchange="fun()"/>
+    <br />
+    <select id="selectA" onchange="selectA(this.value)">
+    	<option>请选择</option>
+    	<option value="aaa">吃饭</option>
+    	<option value="bbb">睡觉</option>
+    	<option value="ccc">打豆豆</option>
+    </select>
+    <br/>
+    <a href="MongoDB">MongoDB</a>
 </body>
 <script type="text/javascript">
 function fun(){
@@ -40,6 +49,9 @@ function fun(){
 	    	alert("msg" + data.msg);
 	    }
 	});
+}
+function selectA(obj){
+	console.log(obj);
 }
 </script>
 </html>

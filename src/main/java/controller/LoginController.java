@@ -17,6 +17,13 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBConnector;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
@@ -131,5 +138,37 @@ public class LoginController {
 		json.addProperty("src", src);
 		json.addProperty("msg", msg);
 		return json.toString();
+	}
+	
+	@RequestMapping("MongoDB")
+	public ModelAndView mongoDB(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView("/index/index");
+		 try{   
+	       // 连接到 mongodb 服务
+	       MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
+	       // 连接到数据库
+	       DB db = mongoClient.getDB("first_mongodb");
+	       // 链接集合（数据表）
+	       DBCollection dbc = db.getCollection("col");
+	       // 设置插入的文档对象
+	       BasicDBObject bo = new BasicDBObject();
+	       bo.put("ccc", "aaa");
+	       bo.put("啊啊啊", 666);
+	       // 插入对象
+	       dbc.insert(bo);
+	       // 查询对象
+	       DBCursor rusult = dbc.find();
+	       for (DBObject dbObject : rusult) {
+	    	   System.out.println(dbObject);
+	       }
+	       // 关闭链接
+	       mongoClient.close();
+	       System.out.println("Connect to database successfully");
+	        
+	      }catch(Exception e){
+	        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+	     }
+		 mv.addObject("username", "aaa");
+		 return mv;
 	}
 }
