@@ -46,7 +46,7 @@ public class LoginController {
 	    ModelAndView mv = new ModelAndView("/index/index","command","LOGIN SUCCESS, " + username);
 	    return mv;
 	}
-	
+
 	@RequestMapping(value="qiniu")
 	public ModelAndView qiniu(HttpServletRequest request,HttpServletResponse response){
 		ModelAndView mv = new ModelAndView("/upload/upload");
@@ -56,7 +56,7 @@ public class LoginController {
 		mv.addObject("token", token);
 		return mv;
 	}
-	
+
 	@RequestMapping(value="uploadS", method = RequestMethod.GET)
 	public ModelAndView uploadS(HttpServletRequest request, HttpServletResponse response, String ak, String sk){
 		String upToken = Auth.create(AK, SK).uploadToken(BUCKET);
@@ -78,7 +78,7 @@ public class LoginController {
 		}
 		return mv;
 	}
-	
+
 	@RequestMapping(value="upload", method = RequestMethod.POST)
 	public ModelAndView upload(@RequestParam("file") MultipartFile file){
 		ModelAndView mv = new ModelAndView("/result/result");
@@ -102,13 +102,13 @@ public class LoginController {
 			} catch (IOException e) {
 				msg = "fail:" + e;
 				e.printStackTrace();
-			} 
+			}
 		}
 		mv.addObject("result", msg);
 		mv.addObject("src", src);
 		return mv;
 	}
-	
+
 	@RequestMapping(value="uploadB", method = RequestMethod.POST)
 	@ResponseBody
 	public String uploadB(@RequestParam("ajaxFile") MultipartFile ajaxFile){
@@ -133,17 +133,17 @@ public class LoginController {
 			} catch (IOException e) {
 				msg = "fail:" + e;
 				e.printStackTrace();
-			} 
+			}
 		}
 		json.addProperty("src", src);
 		json.addProperty("msg", msg);
 		return json.toString();
 	}
-	
+
 	@RequestMapping("MongoDB")
 	public ModelAndView mongoDB(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView("/index/index");
-		 try{   
+		 try{
 	       // 连接到 mongodb 服务
 	       MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
 	       // 连接到数据库
@@ -164,11 +164,12 @@ public class LoginController {
 	       // 关闭链接
 	       mongoClient.close();
 	       System.out.println("Connect to database successfully");
-	        
+
 	      }catch(Exception e){
 	        System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	     }
 		 mv.addObject("username", "aaa");
 		 return mv;
 	}
+
 }
